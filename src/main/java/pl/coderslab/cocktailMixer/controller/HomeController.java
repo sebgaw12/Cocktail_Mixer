@@ -11,9 +11,6 @@ import pl.coderslab.cocktailMixer.model.User;
 import pl.coderslab.cocktailMixer.repository.user.UserRepository;
 import pl.coderslab.cocktailMixer.service.UserService;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
