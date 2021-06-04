@@ -8,7 +8,9 @@
 
 <h3>Alkohol</h3>
 
-<form:form modelAttribute="recipeAlcohol" method="post" action="/recipe/addAlcohol/${recipe.id}">
+<form:form modelAttribute="recipeAlcohol" method="post" action="/recipe/saveAlcohol">
+
+    <form:select path="recipe" id="recipe" items="${recipes}" itemValue="id" itemLabel="name"/>
 
     <form:select path="alcohol" id="alcohol" items="${alcohols}" itemValue="id" itemLabel="name"/>
 

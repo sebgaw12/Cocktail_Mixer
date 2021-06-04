@@ -68,33 +68,34 @@ public class RecipeController {
         recipe.setDescription(recipe.getDescription());
         recipe.setVolume(recipe.getVolume());
         recipeRepository.save(recipe);
-        return "redirect:addAlcohol/" + recipe.getId();
+        return "redirect:addAlcohol" ;
     }
 
-    @GetMapping("/addAlcohol/{id}")
-    public String addAlcohol(Model model, @PathVariable long id){
+    @GetMapping("/addAlcohol")
+    public String addAlcohol(Model model){
         model.addAttribute(new RecipeAlcohol());
         model.addAttribute("alcohols", alcoholRepository.findAll());
-        model.addAttribute(recipeRepository.findById(id));
+        model.addAttribute("recipes", recipeRepository.findAll());
         return "/app/recipe/addAlcoToRecipe";
     }
 
-    @PostMapping("/addAlcohol")
+    @PostMapping("/saveAlcohol")
     public String saveAlcohol(RecipeAlcohol recipeAlcohol) {
 
         recipeAlcohol.setVolumeAdd(recipeAlcohol.getVolumeAdd());
         recipeAlcohol.setType(recipeAlcohol.getType());
         recipeAlcohol.setAlcohol(recipeAlcohol.getAlcohol());
+        recipeAlcohol.setRecipe(recipeAlcohol.getRecipe());
         alcoholRecipeRepository.save(recipeAlcohol);
-        return "redirect:addOI/" + recipeAlcohol.getRecipe().getId();
+        return "redirect:addOI";
     }
 
-    @GetMapping("/addOI/{id}")
-    public String addOI(Model model, @PathVariable long id){
+    @GetMapping("/addOI")
+    public String addOI(Model model){
 
         model.addAttribute(new RecipeOtherIngredients());
         model.addAttribute("otherIngredients", oiRecipeRepository.findAll());
-        model.addAttribute(recipeRepository.findById(id));
+        model.addAttribute("recipes", recipeRepository.findAll());
         return "app/recipe/addOItoRecipe";
     }
 
