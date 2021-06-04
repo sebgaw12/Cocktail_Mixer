@@ -18,6 +18,8 @@
     <form:input path="volume" id="volume"/><br/>
 
     <form:button value="submit" name="submit">przejdź dalej</form:button>
+<%--    <form:button><a href="/recipe/addAlcohol/${recipe.id}">dodaj alkohol</a></form:button>--%>
+<%--    <form:button><a href="/recipe/addOI/${recipe.id}">dodaj inny składnik</a></form:button>--%>
 </form:form>
 
 <%@ include file="jspf/footer.jsp" %>

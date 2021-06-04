@@ -6,12 +6,11 @@
 
 <body>
 <h3>Inne składniki</h3>
-<form:form modelAttribute="recipeOtherIngredient">
+<form:form modelAttribute="recipeOtherIngredients" method="post" action="/recipe/addOI">
 
-    <%--        <form:form modelAttribute="otherIngredient">--%>
-    <%--                <form:checkboxes path="empty" items="${otherIngredient}"/><br/>--%>
-    <%--        </form:form>--%>
-    <form:select path="otherIngredient" items="${otherIngredient}" itemLabel="name" itemValue="id"/>
+    <form:select path="recipe" id="recipe" items="${recipes}" itemValue="id" itemLabel="name"/>
+
+    <form:select path="otherIngredient" items="${otherIngredients}" itemLabel="name" itemValue="id"/>
 
     <form:input path="volumeAdd" id="volumeAdd"/>
 
@@ -20,6 +19,8 @@
         <form:option value="szt"/>
         <form:option value="łyżeczek"/>
     </form:select>
+
+    <form:button name="submit" value="submit">zapisz</form:button>
 
 </form:form>
 </body>

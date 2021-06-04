@@ -9,8 +9,6 @@
     <tr>
         <th>ID</th>
         <th>Nazwa</th>
-        <th>Opis</th>
-        <th>Łączna objętość</th>
 <%--        <th>Dodany przez</th>--%>
         <th>Akcja</th>
     </tr>
@@ -18,8 +16,6 @@
         <tr>
             <td>${recipe.id}</td>
             <td>${recipe.name}</td>
-            <td>${recipe.description}</td>
-            <td>${recipe.volume}</td>
 <%--            <td>${recipe.user.username}</td>--%>
             <td>
                 <a href="<c:url value="/recipe/details/${recipe.id}"/>">szczegóły</a>

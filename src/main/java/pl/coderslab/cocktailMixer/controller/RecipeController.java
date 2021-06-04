@@ -4,13 +4,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import pl.coderslab.cocktailMixer.model.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.cocktailMixer.model.Recipe;
+import pl.coderslab.cocktailMixer.model.RecipeAlcohol;
+import pl.coderslab.cocktailMixer.model.RecipeOtherIngredients;
 import pl.coderslab.cocktailMixer.repository.alcohol.AlcoholRecipeRepository;
 import pl.coderslab.cocktailMixer.repository.alcohol.AlcoholRepository;
-import pl.coderslab.cocktailMixer.repository.otherIngredients.OtherIngredientsRepository;
+import pl.coderslab.cocktailMixer.repository.otherIngredients.OiRecipeRepository;
 import pl.coderslab.cocktailMixer.repository.recipe.RecipeRepository;
-import pl.coderslab.cocktailMixer.repository.user.UserRepository;
 
 import javax.validation.Valid;
 
@@ -21,9 +25,8 @@ public class RecipeController {
 
     private final RecipeRepository recipeRepository;
     private final AlcoholRepository alcoholRepository;
-    private final OtherIngredientsRepository otherIngredientsRepository;
     private final AlcoholRecipeRepository alcoholRecipeRepository;
-    private final UserRepository userRepository;
+    private final OiRecipeRepository oiRecipeRepository;
 
     @GetMapping("/list")
     public String recipeList(Model model) {
@@ -65,31 +68,44 @@ public class RecipeController {
         recipe.setDescription(recipe.getDescription());
         recipe.setVolume(recipe.getVolume());
         recipeRepository.save(recipe);
-        return "redirect:addAlcohol";
+        return "redirect:addAlcohol" ;
     }
 
-    @GetMapping("/addAlcohol/{id}")
-    public String addAlcoholToRecipe(Model model, @PathVariable long id){
+    @GetMapping("/addAlcohol")
+    public String addAlcohol(Model model){
         model.addAttribute(new RecipeAlcohol());
         model.addAttribute("alcohols", alcoholRepository.findAll());
-        model.addAttribute(recipeRepository.findById(id));
+        model.addAttribute("recipes", recipeRepository.findAll());
         return "/app/recipe/addAlcoToRecipe";
     }
 
-    @PostMapping("/addAlcohol")
-    public String saveAlcoToRecipe(RecipeAlcohol recipeAlcohol) {
+    @PostMapping("/saveAlcohol")
+    public String saveAlcohol(RecipeAlcohol recipeAlcohol) {
 
-//        recipeAlcohol.setRecipe(recipeRepository.findById(recipeAlcohol.getId()));
         recipeAlcohol.setVolumeAdd(recipeAlcohol.getVolumeAdd());
         recipeAlcohol.setType(recipeAlcohol.getType());
         recipeAlcohol.setAlcohol(recipeAlcohol.getAlcohol());
+        recipeAlcohol.setRecipe(recipeAlcohol.getRecipe());
         alcoholRecipeRepository.save(recipeAlcohol);
         return "redirect:addOI";
     }
 
-    @GetMapping("/addOI/{id}")
-    @ResponseBody
-    public String addOI(@PathVariable long id){
-        return String.valueOf(recipeRepository.findById(id));
+    @GetMapping("/addOI")
+    public String addOI(Model model){
+
+        model.addAttribute(new RecipeOtherIngredients());
+        model.addAttribute("otherIngredients", oiRecipeRepository.findAll());
+        model.addAttribute("recipes", recipeRepository.findAll());
+        return "app/recipe/addOItoRecipe";
+    }
+
+    @PostMapping("/addOI")
+    public String saveOI(RecipeOtherIngredients recipeOtherIngredients){
+
+        recipeOtherIngredients.setOtherIngredient(recipeOtherIngredients.getOtherIngredient());
+        recipeOtherIngredients.setVolumeAdd(recipeOtherIngredients.getVolumeAdd());
+        recipeOtherIngredients.setType(recipeOtherIngredients.getType());
+        oiRecipeRepository.save(recipeOtherIngredients);
+        return "redirect:list";
     }
 }
