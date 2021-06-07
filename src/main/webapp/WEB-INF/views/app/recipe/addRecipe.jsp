@@ -9,7 +9,7 @@
 <form:form method="post" modelAttribute="recipe" action="/recipe/addRecipe">
 
     <form:errors path="name"/>
-    <form:errors path="volume"/>
+    <form:errors path="volume"/><br/>
     <form:input path="name" id="name" placeholder="nazwa"/><br/>
 
     <form:textarea path="description" id="description" placeholder="opis"/><br/>

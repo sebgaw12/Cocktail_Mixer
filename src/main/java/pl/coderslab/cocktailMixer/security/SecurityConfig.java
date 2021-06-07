@@ -29,7 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/recipe/*").authenticated()
                 .antMatchers("/alcohol/*").authenticated()
                 .antMatchers("/otherIngredient/*").authenticated()
-                .and().formLogin().loginPage("/login")
+                .and().formLogin()
+//                .loginPage("/login")
                 .and().logout().logoutSuccessUrl("/home").permitAll();
     }
 }

@@ -68,12 +68,15 @@ public class RecipeController {
         recipe.setDescription(recipe.getDescription());
         recipe.setVolume(recipe.getVolume());
         recipeRepository.save(recipe);
-        return "redirect:addAlcohol" ;
+        return "redirect:addAlcohol" + recipe.getId() ;
     }
 
-    @GetMapping("/addAlcohol")
-    public String addAlcohol(Model model){
-        model.addAttribute(new RecipeAlcohol());
+    @GetMapping("/addAlcohol/{id}")
+    public String addAlcohol(Model model, @PathVariable long id){
+        RecipeAlcohol recipeAlcohol = new RecipeAlcohol();
+        Recipe byId = recipeRepository.findById(id);
+        recipeAlcohol.setRecipe(byId);
+        model.addAttribute(recipeAlcohol);
         model.addAttribute("alcohols", alcoholRepository.findAll());
         model.addAttribute("recipes", recipeRepository.findAll());
         return "/app/recipe/addAlcoToRecipe";
